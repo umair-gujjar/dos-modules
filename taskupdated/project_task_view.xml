@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+       <!-- <record id="project_task_view_form_inherit1" model="ir.ui.view">
+            <field name="name">Project_task_update</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_form2"/>
+            <field name="arch" type="xml">           
+                            <field name="work_ids" groups="project.group_tasks_work_on_tasks" attrs="{'invisible':[('hourly_check', '!=', True)]}">
+                                <tree string="Task Work" editable="top" >
+                                    <field name="name"/>
+                                    <field name="entries_col" />
+                                    <field name="hours"/>
+                                    <field name="date"/>
+                                    <button name="MyInitiateTask" string="Start Time" type="object"  class="oe_highlight" attrs="{'invisible': [('Diff_date','!=','/')]}"/>
+                                    <field name="SDate" string="Start Task" on_change="STask(SDate,EDate)"  />
+                                    <button name="MyFinalTask" string="End Time" type="object"  class="oe_highlight" attrs="{'invisible': [('Diff_date','!=','/')]}"/>
+                                    <field name="EDate" string="End Task" on_change="STask(SDate,EDate)"/>
+                                    <field name="Diff_date"/>
+                                    <field name="user_id"/>
+
+                                    
+
+                                </tree>
+                            </field>
+
+                </field>                                 
+        </record> -->
+        <record id="project_task_view_form_inherit1_copy" model="ir.ui.view">
+            <field name="name">project_task_materials</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_form2"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='work_ids']/tree/field[@name='name']" position="after">
+                    <field name="entries_col" />
+                    <button name="MyInitiateTask" string="Start Time" type="object"  class="oe_highlight" attrs="{'invisible': [('Diff_date','!=','/')]}"/>
+                    <field name="SDate" string="Start Task" on_change="STask(SDate,EDate)"  />
+                    <button name="MyFinalTask" string="End Time" type="object"  class="oe_highlight" attrs="{'invisible': [('Diff_date','!=','/')]}"/>
+                    <field name="EDate" string="End Task" on_change="STask(SDate,EDate)"/>
+                    <field name="Diff_date"/>
+                    <field name="amount_recalculate" />
+                    <field name="check_analytic"/>
+                </xpath>
+            </field>                                 
+        </record>
+        <record id="project_task_view_form_mat" model="ir.ui.view">
+            <field name="name">project_task_materials</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_form2"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@string='Fixed Entries']" position="attributes">
+                    <attribute name="attrs">{'invisible':[('hourly_check', '!=', True)]}</attribute>
+                </xpath>
+            </field>                                 
+        </record>
+        <record id="project_task_view_form_inherit2" model="ir.ui.view">
+            <field name="name">project_task_materials</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_form2"/>
+            <field name="arch" type="xml">                
+                <xpath expr="//field[@name='material_ids']/tree/field[@name='quantity']" position="after">
+                    <field name="description"/>
+                    <field name="hours" widget="float_time" sum="Total Hours"/>
+                    <field name="date" on_change="ochange_test_date(date)"/>
+                    <button name="MyInitiateTask" string="Start Time" type="object"  class="oe_highlight" attrs="{'invisible': [('Diff_date','!=','/')]}"/>
+                    <field name="SDate" string="Start Task" on_change="STask(SDate,EDate)"  />
+                    <button name="MyFinalTask" string="End Time" type="object"  class="oe_highlight" attrs="{'invisible': [('Diff_date','!=','/')]}"/>
+                    <field name="EDate" string="End Task" on_change="STask(SDate,EDate)"/>
+                    <field name="Diff_date"/>
+                    <field name="amount_recalculate"/>
+                    <field name="test_date" invisible="1"/>
+                    <!--<field name="user_id"/>-->
+                    <field name="done_by"/>
+                </xpath>
+            </field>                                 
+        </record>
+
+
+
+        <record id="project_task_view_form_inherit3" model="ir.ui.view">
+            <field name="name">project_project</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_form2"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='project_id']" position="replace">
+                    <field name="project_id" string="Project" on_change="on_change_project_id_task(project_id)"/>
+                </xpath>
+            </field>                                 
+        </record>
+
+
+        <record id="project_view_form_inherit4" model="ir.ui.view">
+            <field name="name">project_task_description_customization</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_form2"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@string='Extra Info']" position="after">
+                    <page string="Task Description">
+                        <field name='describe' placeholder="Add a Description..."/>
+                    </page>
+                </xpath>
+            </field>                                 
+        </record>
+
+
+        <record id="project_task_view_form_inherit4" model="ir.ui.view">
+            <field name="name">project_project</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_form2"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='project_id']" position="after">
+                    <field name='start_tracker' />
+                    <field name="worksheet_link" widget="url" placeholder="www.google.com" />
+                    <field name="Rate_per_entry" attrs="{'invisible':[('hourly_check', '!=', True)]}" />
+                    <field name="hourly_check" invisible="1"/>
+                    <field name="fixed_check" invisible="1"/>
+                    <!--<field name="product_id" />
+                    <field name="proj_relation" widget="many2many_tags"/>-->
+                </xpath>
+            </field>                                 
+        </record>
+
+
+        <record id="project_view_form_inherit1" model="ir.ui.view">
+            <field name="name">project_project_customization</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="project.edit_project"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@string='Team']" position="before">
+                    <page string="Description">
+                        <field name='description' placeholder="Add a Description..."/>
+                    </page>
+                </xpath>
+            </field>                                 
+        </record>
+
+        <record id="project_view_form_inherit2" model="ir.ui.view">
+            <field name="name">project_product_customization</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="project.edit_project"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group/field[@name='partner_id']" position="after">
+                     <newline/>
+                        <field name='product_relation' widget="many2many_tags" string="Select Products" on_change="onchang_this_field(product_relation)"/>
+                         <newline/>
+                        <field name='source' string="Source"/>
+                         <newline/>
+                        <field name='link' string="Link" widget="url" placeholder="www.google.com"/>
+                         <newline/>
+                        <field name='hourly_check' string="For Hourly Work"/>
+                        <newline/>
+                        <field name='fixed_check' string="For Fixed Work" invisible="1"/>
+                    
+                </xpath>
+            </field>                                 
+        </record>
+
+
+
+    </data>
+</openerp>

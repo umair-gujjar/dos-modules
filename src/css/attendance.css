@@ -1,0 +1,9 @@
+.oe_systray #oe_attendance_sign_in_out_icon {
+    
+}
+.oe_attendance_sign_in_color {
+    color: green;
+}
+.oe_attendance_sign_out_color {
+    color: red;
+}
